@@ -23,7 +23,7 @@ def process_image():
     results = model(img)
     print("Изображение обработано.")
 
-    # Отображаем изображение с выделенными объектами
+    # Отображаем изображение
     for i, r in enumerate(results):
         results_img_bgr = r.plot()  # BGR-order numpy array
         results_img = Image.fromarray(results_img_bgr[..., ::-1])  # RGB-order PIL image
