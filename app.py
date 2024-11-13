@@ -5,9 +5,9 @@ import torch
 from ultralytics import YOLO
 
 # Загрузка модели
-#model = YOLO("yolo11n.pt")  # Оффициальная модель
 try:
-    model = YOLO("./best.pt")  # load a custom model
+    #model = YOLO("yolo11n.pt")  # Оффициальная модель
+    model = YOLO("./best.pt")
     print("YOLOv11 модель загружена успешно.")
 except Exception as e:
     print("Ошибка загрузки YOLOv11 модели:", e)
@@ -31,8 +31,6 @@ def process_image():
 
         #print(f"results{i}.jpg") # Выводит название обработанного файла и его нумерацию в массиве
 
-    #results_img = Image.fromarray(results_img)
-    #results_img = results_img.resize((400, 400))
     img_tk = ImageTk.PhotoImage(results_img)
     canvas.create_image(0, 0, anchor="nw", image=img_tk)
     canvas.image = img_tk
