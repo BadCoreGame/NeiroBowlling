@@ -36,22 +36,15 @@ def process_image():
     canvas.image = img_tk
     print("Результаты отобразились.")
 
-    # Проверяем, обнаружены ли объекты, похожие на боулинг
-    labels = r.boxes.cls  # Классы объектов
-    confidences = r.boxes.conf  # Вероятности объектов
-    class_names = model.names  # Получаем имена классов из модели
+    top_result = results[0]  # Получаем самый вероятный класс
+    class_index = top_result.probs.top1  # Индекс класса с наибольшей вероятностью
+    confidence = top_result.probs.top1conf  # Вероятность класса с наибольшей вероятностью
+    class_name = model.names[class_index]  # Имя класса
 
-    bowling_detected = False
-    max_confidence = 0.0
-    for label, confidence in zip(labels, confidences):
-        if class_names[int(label)] in ["bowling-ball", "bowling-pins"]:
-            bowling_detected = True
-            max_confidence = max(max_confidence, confidence)
-
-    # Обновляем результат
-    if bowling_detected:
-        result_label.config(text=f"Обнаружен боулинг с точностью {max_confidence * 100:.2f}%")
-        print(f"Обнаружен боулинг с точностью {max_confidence * 100:.2f}%")
+    # Проверяем, является ли изображение боулингом
+    if class_name in ["Bowling"]:  # Используйте свои метки
+        result_label.config(text=f"Обнаружен боулинг с точностью {confidence * 100:.2f}%")
+        print(f"Обнаружен боулинг с точностью {confidence * 100:.2f}%")
     else:
         result_label.config(text="Боулинг не обнаружен")
         print("Боулинг не обнаружен.")
