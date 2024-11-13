@@ -42,12 +42,12 @@ def process_image():
     class_name = model.names[class_index]  # Имя класса
 
     # Проверяем, является ли изображение боулингом
-    if class_name in ["Bowling"]:  # Используйте свои метки
+    if class_name in ["Bowling"]:
         result_label.config(text=f"Обнаружен боулинг с точностью {confidence * 100:.2f}%")
         print(f"Обнаружен боулинг с точностью {confidence * 100:.2f}%")
     else:
         result_label.config(text="Боулинг не обнаружен")
-        print("Боулинг не обнаружен.")
+        print(f"Боулинг не обнаружен, потому что {class_name} с точностью в {confidence * 100:.2f}% не является 'Bowling'.")
 
 # Функция для загрузки изображения
 def load_image():
